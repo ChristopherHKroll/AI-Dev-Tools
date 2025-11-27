@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}TODO List{% endblock %}
+
+{% block content %}
+<h2>Your Tasks</h2>
+
+<!-- Create new task -->
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Task</button>
+</form>
+
+<hr>
+
+<!-- Display tasks -->
+<ul>
+    {% for task in tasks %}
+        <li>
+            {% if task.is_done %}
+                <s>{{ task.title }}</s>
+            {% else %}
+                {{ task.title }}
+            {% endif %}
+
+            {% if task.due_date %}
+                (due: {{ task.due_date }})
+            {% endif %}
+
+            <a href="{% url 'todo:task_toggle_done' task.pk %}">
+                {% if task.is_done %}Undo{% else %}Done{% endif %}
+            </a>
+            |
+            <a href="{% url 'todo:task_edit' task.pk %}">Edit</a>
+            |
+            <a href="{% url 'todo:task_delete' task.pk %}">Delete</a>
+        </li>
+    {% empty %}
+        <li>No tasks yet.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

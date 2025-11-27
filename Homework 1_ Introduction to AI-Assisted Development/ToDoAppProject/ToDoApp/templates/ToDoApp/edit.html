@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Task{% endblock %}
+
+{% block content %}
+<h2>✏ Edit Task</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit">💾 Save Changes</button>
+    <a href="{% url 'todo:task_list' %}" style="margin-left: 15px; display: inline-block; padding: 14px 30px; background: #868e96; color: white; text-decoration: none; border-radius: 8px; font-weight: 600;">Cancel</a>
+</form>
+{% endblock %}

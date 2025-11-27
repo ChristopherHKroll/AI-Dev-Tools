@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block title %}Home - ToDoApp{% endblock %}
+
+{% block content %}
+<h2>📝 Your Tasks</h2>
+
+<!-- Create new task -->
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">➕ Add Task</button>
+</form>
+
+<hr>
+
+<!-- Active Tasks -->
+<h3 style="color: #667eea; margin-bottom: 20px;">🎯 To Do</h3>
+<ul id="todo-list" class="sortable-list">
+    {% for task in tasks %}
+        {% if not task.is_done %}
+        <li data-task-id="{{ task.pk }}" draggable="true">
+            <div class="drag-handle">⋮⋮</div>
+            <div class="task-content">
+                <div class="task-title">
+                    {{ task.title }}
+                </div>
+                {% if task.description %}
+                    <div style="color: #666; font-size: 0.9em; margin-top: 5px;">{{ task.description }}</div>
+                {% endif %}
+                {% if task.due_date %}
+                    <span class="task-due">📅 Due: {{ task.due_date }}</span>
+                {% endif %}
+            </div>
+            <div class="task-actions">
+                <a href="{% url 'todo:task_toggle_done' task.pk %}" class="btn-done">
+                    ✓ Done
+                </a>
+                <a href="{% url 'todo:task_edit' task.pk %}" class="btn-edit">✏ Edit</a>
+                <a href="{% url 'todo:task_delete' task.pk %}" class="btn-delete">🗑 Delete</a>
+            </div>
+        </li>
+        {% endif %}
+    {% endfor %}
+</ul>
+
+<hr style="margin-top: 40px;">
+
+<!-- Completed Tasks -->
+<h3 style="color: #51cf66; margin-bottom: 20px;">✅ Completed</h3>
+<ul id="completed-list" class="sortable-list">
+    {% for task in tasks %}
+        {% if task.is_done %}
+        <li class="done" data-task-id="{{ task.pk }}" draggable="true">
+            <div class="drag-handle">⋮⋮</div>
+            <div class="task-content">
+                <div class="task-title done">
+                    {{ task.title }}
+                </div>
+                {% if task.description %}
+                    <div style="color: #666; font-size: 0.9em; margin-top: 5px;">{{ task.description }}</div>
+                {% endif %}
+                {% if task.due_date %}
+                    <span class="task-due">📅 Due: {{ task.due_date }}</span>
+                {% endif %}
+            </div>
+            <div class="task-actions">
+                <a href="{% url 'todo:task_toggle_done' task.pk %}" class="btn-undo">
+                    ↩ Undo
+                </a>
+                <a href="{% url 'todo:task_edit' task.pk %}" class="btn-edit">✏ Edit</a>
+                <a href="{% url 'todo:task_delete' task.pk %}" class="btn-delete">🗑 Delete</a>
+            </div>
+        </li>
+        {% endif %}
+    {% endfor %}
+</ul>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const lists = document.querySelectorAll('.sortable-list');
+    
+    lists.forEach(list => {
+        let draggedElement = null;
+        
+        list.addEventListener('dragstart', function(e) {
+            if (e.target.tagName === 'LI') {
+                draggedElement = e.target;
+                e.target.style.opacity = '0.5';
+            }
+        });
+        
+        list.addEventListener('dragend', function(e) {
+            if (e.target.tagName === 'LI') {
+                e.target.style.opacity = '1';
+                saveOrder(list);
+            }
+        });
+        
+        list.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            const afterElement = getDragAfterElement(list, e.clientY);
+            if (afterElement == null) {
+                list.appendChild(draggedElement);
+            } else {
+                list.insertBefore(draggedElement, afterElement);
+            }
+        });
+    });
+    
+    function getDragAfterElement(container, y) {
+        const draggableElements = [...container.querySelectorAll('li:not(.dragging)')];
+        
+        return draggableElements.reduce((closest, child) => {
+            const box = child.getBoundingClientRect();
+            const offset = y - box.top - box.height / 2;
+            
+            if (offset < 0 && offset > closest.offset) {
+                return { offset: offset, element: child };
+            } else {
+                return closest;
+            }
+        }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
+    
+    function saveOrder(list) {
+        const items = list.querySelectorAll('li');
+        const taskOrders = [];
+        
+        items.forEach((item, index) => {
+            const taskId = item.getAttribute('data-task-id');
+            if (taskId) {
+                taskOrders.push({
+                    id: parseInt(taskId),
+                    position: index
+                });
+            }
+        });
+        
+        fetch('{% url "todo:task_reorder" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ task_orders: taskOrders })
+        });
+    }
+});
+</script>
+
+{% endblock %}
