@@ -44,8 +44,140 @@ Copy and paste it in the homework form.
 
 ### Answer 1:
 
-```bash
-pip install django
+```
+SYSTEM / PRIMARY TASK
+
+You are an expert senior full-stack engineer (15+ years experience), specialized in realtime collaboration apps, WebSockets, CRDT/OT, sandboxed code execution, and modern JavaScript frameworks.
+Generate production-ready code, with clean architecture, modular structure, proper separation of concerns, and detailed explanations when necessary.
+Your task: Implement a complete online coding-interview platform.
+
+REQUIREMENTS
+1. Functionality
+
+Implement a platform for online coding interviews with the following capabilities:
+
+Core Features
+
+Create a sharable interview session (unique URL / room ID).
+
+Host shares the link with the candidate.
+
+Anyone who joins can edit the code collaboratively.
+
+All connected clients see updates in real time.
+
+Built-in code editor with syntax highlighting, supporting multiple languages.
+
+Code execution in the browser using a safe sandbox (e.g. WebContainers, Pyodide fallback, or isolated iframe).
+
+Track connected users and show presence (optional but nice to have).
+
+2. Frontend
+
+Use JavaScript (no TypeScript unless needed), built with one of the following frameworks (choose the best one for minimal friction):
+
+React + Vite or
+
+Next.js App Router or
+
+Vanilla JS + CodeMirror 6 editor
+
+Frontend must include:
+
+Real-Time Collaborative Editor
+
+Implement using CodeMirror 6 or Monaco Editor.
+
+Support syntax highlighting for JavaScript, Python, C++, Java.
+
+Live updates synchronized via WebSocket / WebRTC.
+
+UI Requirements
+
+Clean, minimal, interview-style interface.
+
+Share-link button that generates room URL.
+
+Run Code button → displays output in console panel.
+
+3. Backend
+
+Use Node.js with Express (or Fastify).
+Backend responsibilities:
+
+Realtime Sync
+
+Implement WebSocket server.
+
+Broadcast all code changes to connected room members.
+
+Room Management
+
+Create rooms.
+
+Manage user connections.
+
+Persist code state in memory.
+
+Safe Code Execution
+
+Implement sandboxed execution (pick the most secure option):
+
+Run JavaScript inside isolated VM2 sandbox or
+
+Use WebContainers for in-browser execution or
+
+Evaluate Python via Pyodide in browser
+(Claude should pick the safest cross-platform solution.)
+
+Backend must never execute arbitrary code on the server.
+
+4. Deliverables
+
+Your response must include:
+
+(A) Directory structure (full project layout)
+(B) Complete backend code
+(C) Complete frontend code
+(D) Instructions for:
+
+Installing
+
+Running locally
+
+Deploying (Render / Vercel / Railway)
+
+Environment variables
+
+WebSocket handling
+
+(E) Explanations where needed:
+
+How collaborative sync works
+
+How the sandbox works
+
+How to extend languages
+
+Your output MUST be complete and runnable as-is.
+
+5. Coding Style
+
+Production-grade
+
+Modular
+
+Clean, commented code
+
+Small, testable components
+
+Error handling everywhere
+
+No pseudocode — only real implementation
+
+BEGIN NOW
+
+Create the full project implementation exactly as specified.
 ```
 
 
