@@ -245,7 +245,7 @@ What's the base image you used for your Dockerfile?
 ### Answer 6:
 
 ```
-node:18-alpine
+node:20-alpine
 ```
 
 ## Question 7: Deployment
