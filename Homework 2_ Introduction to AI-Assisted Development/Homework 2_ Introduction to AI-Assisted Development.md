@@ -221,3 +221,17 @@ Which library did AI use for it?
 ```
 CodeMirror 6
 ```
+
+## Question 5: Code Execution
+
+Now let's add code execution.
+
+For security reasons, we don't want to execute code directly on the server. Instead, let's use WASM to execute the code only in the browser.
+
+Which library did AI use for compiling Python to WASM?
+
+### Answer 5:
+
+```
+Pyodide
+```
