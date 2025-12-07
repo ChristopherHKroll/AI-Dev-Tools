@@ -235,3 +235,27 @@ Which library did AI use for compiling Python to WASM?
 ```
 Pyodide
 ```
+
+## Question 6: Containerization
+
+Now let's containerize our application. Ask AI to help you create a Dockerfile for the application. Put both backend and frontend in one container.
+
+What's the base image you used for your Dockerfile?
+
+### Answer 6:
+
+```
+
+```
+
+## Question 7: Deployment
+
+Now let's deploy it. Choose a service to deploy your application.
+
+Which service did you use for deployment?
+
+### Answer 7:
+
+```
+
+```
