@@ -209,3 +209,15 @@ What's the command you have in `package.json` for `npm dev` for running both?
 ```
 npm run dev
 ```
+
+## Question 4: Syntax Highlighting
+
+Let's now add support for syntax highlighting for JavaScript and Python.
+
+Which library did AI use for it?
+
+### Answer 4:
+
+```
+
+```
