@@ -180,4 +180,20 @@ BEGIN NOW
 Create the full project implementation exactly as specified.
 ```
 
+## Question 2: Integration Tests
 
+Maybe at this point your application will already function. Maybe not. But it's always a good idea to cover it with tests.
+
+We usually do it even before trying to run the application because it helps to resurface all the problems with implementation.
+
+Ask AI to write integration tests that check that the interaction between client and server works.
+
+Also it's a good idea to ask it to start creating a `README.md` file with all the commands for running and testing your application.
+
+What's the terminal command you use for executing tests?
+
+### Answer 1:
+
+```
+npm test
+```
