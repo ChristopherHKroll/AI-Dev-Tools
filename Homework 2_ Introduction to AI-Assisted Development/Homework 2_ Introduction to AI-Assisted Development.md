@@ -192,8 +192,20 @@ Also it's a good idea to ask it to start creating a `README.md` file with all th
 
 What's the terminal command you use for executing tests?
 
-### Answer 1:
+### Answer 2:
 
 ```
 npm test
+```
+
+## Question 3: Running Both Client and Server
+
+Now let's make it possible to run both client and server at the same time. Use `concurrently` for that.
+
+What's the command you have in `package.json` for `npm dev` for running both?
+
+### Answer 3:
+
+```
+npm run dev
 ```
