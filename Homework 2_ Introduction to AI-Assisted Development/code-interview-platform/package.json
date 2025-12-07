@@ -1,0 +1,53 @@
+{
+    "name": "code-interview-platform",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\" --names \"CLIENT,SERVER\" --prefix-colors \"cyan,magenta\"",
+        "dev:client": "next dev",
+        "dev:server": "cd backend && npm run dev",
+        "start": "concurrently \"npm run start:client\" \"npm run start:server\" --names \"CLIENT,SERVER\" --prefix-colors \"cyan,magenta\"",
+        "start:client": "next start",
+        "start:server": "cd backend && npm start",
+        "build": "next build",
+        "build:all": "npm run build && cd backend && npm install",
+        "lint": "next lint",
+        "test": "npm run test:client && npm run test:server",
+        "test:client": "vitest run",
+        "test:server": "cd backend && npm test",
+        "test:watch": "concurrently \"npm run test:watch:client\" \"npm run test:watch:server\" --names \"CLIENT,SERVER\" --prefix-colors \"cyan,magenta\"",
+        "test:watch:client": "vitest",
+        "test:watch:server": "cd backend && npm run test:watch",
+        "test:coverage": "npm run test:coverage:client && npm run test:coverage:server",
+        "test:coverage:client": "vitest run --coverage",
+        "test:coverage:server": "cd backend && npm run test:coverage",
+        "install:all": "npm install && cd backend && npm install"
+    },
+    "dependencies": {
+        "@codemirror/lang-cpp": "^6.0.2",
+        "@codemirror/lang-java": "^6.0.1",
+        "@codemirror/lang-javascript": "^6.2.1",
+        "@codemirror/lang-python": "^6.1.3",
+        "@codemirror/language": "^6.9.3",
+        "@codemirror/state": "^6.3.2",
+        "@codemirror/view": "^6.22.0",
+        "@uiw/react-codemirror": "^4.21.21",
+        "nanoid": "^5.0.4",
+        "next": "14.2.33",
+        "quickjs-emscripten": "^0.23.0",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    },
+    "devDependencies": {
+        "@testing-library/jest-dom": "^6.1.5",
+        "@testing-library/react": "^14.1.2",
+        "@vitejs/plugin-react": "^4.2.1",
+        "@vitest/ui": "^4.0.15",
+        "concurrently": "^8.2.2",
+        "eslint": "^8.56.0",
+        "eslint-config-next": "14.2.33",
+        "happy-dom": "^20.0.0",
+        "jsdom": "^23.0.1",
+        "vitest": "^4.0.15"
+    }
+}

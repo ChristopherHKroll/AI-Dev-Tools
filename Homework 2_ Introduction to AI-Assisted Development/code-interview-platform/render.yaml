@@ -1,0 +1,54 @@
+services:
+  # Code Interview Platform - Unified Web Service
+  - type: web
+    name: code-interview-platform
+    env: docker
+    plan: free  # Change to 'starter' ($7/mo) or 'standard' ($25/mo) for production
+    region: oregon  # or: frankfurt, ohio, singapore
+    
+    # Docker Configuration
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    
+    # Port Configuration
+    # Render automatically sets PORT env var (usually 10000)
+    # Our backend uses process.env.PORT
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: CORS_ORIGIN
+        sync: false  # Set in Render dashboard to your app URL
+      - key: NEXT_PUBLIC_WS_URL
+        sync: false  # Set to your Render URL (wss://your-app.onrender.com)
+      - key: NEXT_PUBLIC_API_URL
+        sync: false  # Set to your Render URL (https://your-app.onrender.com)
+    
+    # Health Check - Uses Dockerfile HEALTHCHECK
+    healthCheckPath: /health
+    
+    # Auto-deploy Configuration
+    autoDeploy: true  # Auto-deploy on git push to main branch
+    branch: main
+    
+    # Build Configuration
+    buildCommand: echo "Using Docker build from Dockerfile"
+    
+    # Custom Docker Command (uses our entrypoint script)
+    dockerCommand: ./docker-entrypoint.sh
+    
+    # Scaling Configuration
+    numInstances: 1  # Free tier: 1 instance, Paid: increase for load balancing
+    
+    # Disk Storage (optional, for persistent data)
+    # disk:
+    #   name: data
+    #   mountPath: /app/data
+    #   sizeGB: 1
+
+# Optional: Add a cron job for cleanup
+# - type: cron
+#   name: cleanup-inactive-rooms
+#   env: docker
+#   dockerfilePath: ./Dockerfile
+#   schedule: "0 2 * * *"  # Daily at 2 AM
+#   dockerCommand: node cleanup-script.js
